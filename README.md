@@ -1,2 +1,2 @@
 # LTD04-Lunar-Ops
-Code for lunar ops
+Earth --> YEET --> Moon --> SUCC --> YEET --> Earth
