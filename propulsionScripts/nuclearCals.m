@@ -1,6 +1,8 @@
 %nuclear engine estimates
 
-mempty = 5;  %kg
+mpayload = 5;  %kg
+reactorMass = 0:1000;
+mempty = mpayload+reactorMass;
 distEarth2Moon = 384400000; %meters
 SGP = 3.986e14; %standard gravitational parameter
 Vmoon = (SGP / distEarth2Moon)^0.5;
@@ -11,10 +13,10 @@ mprop = mempty*exp(Vmoon/(Isp*ge)) - mempty;
 
 
 %using KRUSTY engine
-specificPower = 4000e6/34000; %W/kg
-reactorMass = 0:1000;
+specificPower = 10000; %W/kg
 
-mtotal = mprop + mempty + reactorMass;
+
+mtotal = mprop + mempty;
 thrust = mtotal * gm;
 
 power = thrust * Isp * ge/2;
