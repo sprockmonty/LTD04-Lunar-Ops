@@ -1,7 +1,7 @@
 %nuclear engine estimates
 
 mpayload = 5;  %kg
-reactorMass = 0:1000;
+reactorMass = 0:200;
 mempty = mpayload+reactorMass;
 distEarth2Moon = 384400000; %meters
 SGP = 3.986e14; %standard gravitational parameter
@@ -14,13 +14,13 @@ mprop = mempty*exp(Vmoon/(Isp*ge)) - mempty;
 
 %using KRUSTY engine
 specificPower = 10000; %W/kg
-
+specificThrust = 73396/2478; %N/kg, from rubber NTR sizing
 
 mtotal = mprop + mempty;
 thrust = mtotal * gm;
 
 power = thrust * Isp * ge/2;
-plot(mtotal, power)
+plot(mtotal, thrust)
 hold on
-plot(mtotal,reactorMass*specificPower)
-legend("power required", "power provided")
+plot(mtotal,specificThrust*reactorMass)
+legend("thrust required", "thrust provided")
