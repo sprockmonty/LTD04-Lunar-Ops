@@ -1,0 +1,30 @@
+clearAll = true;
+figOn = true;
+
+close all
+if clearAll
+    clear
+    numActions = 4;
+    gridSize = 3;
+    grid = ones(gridSize) * -1;
+    grid(2,2) = 1000;
+    Q = zeros(length(grid),length(grid),numActions); % up, right, down, left (clockwise)
+    figOn = false;
+end
+iterations = 100000;
+
+%setup Q values
+
+stateHistory = [1,1];
+etaGreedy = 0;
+alphaRate = 1; %alpha rate is learn rate 0<alpha<1
+lambda = 0.9; %discount factor 0<lambda<1 - expected amount of reward under terminating model
+actionFunc = @upLeftDownRight; %select action function
+fig = figure;
+
+
+% Q learning function
+Q = qLearn(grid, numActions, Q, stateHistory, etaGreedy, alphaRate, lambda, actionFunc, fig, figOn, iterations);
+
+
+

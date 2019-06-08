@@ -1,0 +1,15 @@
+function [actionTaken] = tryAction(inState, action, actionFunc, grid)
+%tryAction Try to see what the result of taking an action will be
+%   INPUTS:
+%       action - action trying to take
+%       actionFunc - function of the action to be taken
+%       grid - the grid of resources
+%   OUTPUTS:
+%       actionTaken - the action taken
+    stateResult = actionFunc(inState ,action);
+    gridSize = length(grid2);
+    if stateResult(:) > gridSize || stateResult(:) < 0
+        stateResult = inState;
+    end
+end
+
