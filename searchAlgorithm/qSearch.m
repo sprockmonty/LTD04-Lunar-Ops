@@ -15,7 +15,7 @@ if isLearning
     grid(8,5) = 10;
     Q = zeros(length(grid),length(grid),numActions); % up, right, down, left (clockwise)
     figOn = false;
-    etaGreedy = 0.1; %chance there is a random action instead of the chosen one (set to 0 to follow Q exactly)
+    etaGreedy = 0.5; %chance there is a random action instead of the chosen one (set to 0 to follow Q exactly)
 end
 iterations = 100000;
 

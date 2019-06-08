@@ -11,9 +11,9 @@ function [Q] = qLearn(grid, numActions, Q, stateHistory, etaGreedy, alphaRate, l
                 QAction(qActions) = Q(stateHistory(end,1),stateHistory(end,2),qActions); %returns the Q for the s value of the action taken as determined by tryAction 
             end
             [isZero,action] = max(QAction);  %QAction is 1x4 matrix
-            %if not(isZero)
-            %    action = ceil(numActions * rand);
-            %end
+            if all(isZero == QAction)   %truly random if all actions are equally weighted
+                action = ceil(numActions * rand);
+            end
         else
             action = ceil(numActions * rand);
         end
