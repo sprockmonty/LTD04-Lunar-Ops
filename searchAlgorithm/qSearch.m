@@ -1,4 +1,4 @@
-isLearning = false;
+isLearning = true;
 
 % Begin script
 

@@ -4,14 +4,13 @@ function outState = upLeftDownRight(inState, action)
 %   2 = right
 %   3 = down
 %   4 = left
-    switch action
-        case 1
+    if action  == 1
             outState = [inState(1)+1,inState(2)]; 
-        case 2
+    elseif action == 2
             outState = [inState(1),inState(2)+1];
-        case 3
+    elseif action == 3
             outState = [inState(1)-1,inState(2)];
-        case 4
+    elseif action == 4
             outState = [inState(1),inState(2)-1];
     end
 end
