@@ -1,8 +1,7 @@
-function [Q] = qLearn(grid, numActions, Q, stateHistory, etaGreedy, alphaRate, lambda, actionFunc, fig, figOn, iterations)
+function [Q] = qLearn(grid, numActions, Q, stateHistory, etaGreedy, alphaRate, lambda, actionFunc, gridAfterFunc, fig, figOn, iterations, requiredResource)
 %qLearn Learns based off grid
 %   INPUTS
 %       figOn - bool, should you draw figures
-
     totalReward = 0;
     for t = 1:iterations
         %% Select action
@@ -20,9 +19,13 @@ function [Q] = qLearn(grid, numActions, Q, stateHistory, etaGreedy, alphaRate, l
         %% execute action
         stateHistory = [stateHistory;tryAction(stateHistory(end,:), action, actionFunc, grid)];
         reward = grid(stateHistory(end,1),stateHistory(end,2));
+        totalReward = totalReward + reward;
+        grid = gridAfterFunc(stateHistory, totalReward, grid);
+        if totalReward > requiredResource
+            totalReward = 0;
+        end
         if figOn
             drawGrid(grid, stateHistory, 5, fig)
-            totalReward = totalReward + reward;
             disp(totalReward)
         end
         %% Update Q value
