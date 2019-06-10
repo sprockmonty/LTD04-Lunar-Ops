@@ -1,6 +1,6 @@
-isLearning = true;
+isLearning = false;
 
-% Begin script
+% Begin J.ourney E.xploration reinF.orcement F.or the D.rilling O.perations T.ask script
 
 
 figOn = true;
@@ -10,14 +10,17 @@ if isLearning
     clear
     numActions = 4;
     gridSize = 10;
-    grid = ones(gridSize) * -1;
-    grid(2,5) = 10;
-    grid(8,5) = 10;
+    grid = ones(gridSize) * -1; %using Stochastic-shortest-path 
+    %read resource and slope data
+    resourceData = rgb2gray(imread('exampleResourceMap.png'));
+    slopeData = rgb2gray(imread('exampleSlopeMap.png'));
+    grid = grid + double(resourceData);
+    
     Q = zeros(length(grid),length(grid),numActions); % up, right, down, left (clockwise)
     figOn = false;
     etaGreedy = 0.5; %chance there is a random action instead of the chosen one (set to 0 to follow Q exactly)
 end
-iterations = 100000;
+iterations = 1000;
 
 %setup Q values
 
