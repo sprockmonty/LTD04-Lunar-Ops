@@ -12,11 +12,6 @@ function [gridAfterFunc] = gridAfterSetup(startGrid, requiredResource)
                 grid(stateHistory(1,1), stateHistory(1,2)) = 100;
                 endState = true;
             end
-            if stateHistory(end,1) == stateHistory(1,1) && stateHistory(end,2) == stateHistory(1,2) && endState
-                 grid = startGrid;
-                 endState = false;
-                 reset = true;
-            end
         end
 end
 

@@ -1,17 +1,21 @@
-function [Q] = qLearn(grid, numActions, Q, stateHistory, etaGreedy, alphaRate, lambda, actionFunc, fig, figOn, iterations)
+function [Q] = qLearn(grid, numActions, Q, stateHistory, etaGreedy, alphaRate, lambda, actionFunc, gridAfterFunc, fig, figOn, iterations, requiredResource)
 %qLearn Learns based off grid
 %   INPUTS
 %       figOn - bool, should you draw figures
-
     totalReward = 0;
+    startGrid = grid;
     for t = 1:iterations
         %% Select action
+        if grid == startGrid
+            qState = 0;
+        end
+        qState = qState+1;
         if rand > etaGreedy
             for qActions = 1:numActions
                 QAction(qActions) = Q(stateHistory(end,1),stateHistory(end,2),qActions); %returns the Q for the s value of the action taken as determined by tryAction 
             end
             [isZero,action] = max(QAction);  %QAction is 1x4 matrix
-            if all(isZero == QAction)
+            if all(isZero == QAction)   %truly random if all actions are equally weighted
                 action = ceil(numActions * rand);
             end
         else
@@ -20,9 +24,13 @@ function [Q] = qLearn(grid, numActions, Q, stateHistory, etaGreedy, alphaRate, l
         %% execute action
         stateHistory = [stateHistory;tryAction(stateHistory(end,:), action, actionFunc, grid)];
         reward = grid(stateHistory(end,1),stateHistory(end,2));
+        totalReward = totalReward + reward;
+        grid = gridAfterFunc(stateHistory, totalReward, grid);
+        if totalReward > requiredResource
+            totalReward = 0;
+        end
         if figOn
             drawGrid(grid, stateHistory, 5, fig)
-            totalReward = totalReward + reward;
             disp(totalReward)
         end
         %% Update Q value
