@@ -4,6 +4,10 @@ function outState = upLeftDownRight(inState, action)
 %   2 = right
 %   3 = down
 %   4 = left
+    action = mod(action,4);
+    if action == 0
+        action = 4;
+    end
     if action  == 1
             outState = [inState(1)+1,inState(2)]; 
     elseif action == 2

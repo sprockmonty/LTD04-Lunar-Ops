@@ -4,7 +4,7 @@ isLearning = false;
 
 
 figOn = true;
-etaGreedy = 1;
+etaGreedy = 0;
 close all
 if isLearning
     clear
@@ -20,9 +20,9 @@ if isLearning
     
     Q = zeros(length(grid),length(grid),numActions*numMoves); % up, right, down, left (clockwise)
     figOn = false;
-    etaGreedy = 0.1; %chance there is a random action instead of the chosen one (set to 0 to follow Q exactly)
+    etaGreedy = 0.5; %chance there is a random action instead of the chosen one (set to 0 to follow Q exactly)
 end
-iterations = 10000;
+iterations = 500000;
 
 %setup Q values
 
@@ -30,7 +30,7 @@ stateHistory = [1,1];
 alphaRate = 1; %alpha rate is learn rate 0<alpha<1
 lambda = 0.9; %discount factor 0<lambda<1 - expected amount of reward under terminating model
 actionFunc = @upLeftDownRight; %select action function
-gridAfterFunc = gridAfterSetup(grid, requiredResource);
+gridAfterFunc = gridAfterSetup(grid, requiredResource, numMoves);
 fig = figure;
 
 
